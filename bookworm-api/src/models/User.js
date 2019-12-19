@@ -18,6 +18,10 @@ const schema = new mongoose.Schema(
         confirmed: {
             type: Boolean,
             default: false
+        },
+        confirmationToken: { 
+            type: String,
+            default: ""
         }
     },
     { timestamps: true }
@@ -27,9 +31,17 @@ schema.methods.isValidPassword = function isValidPassword(password) {
     let valid = password == this.passwordHash ? true : false;
     return valid;
 }
-//maybe
+
 schema.methods.setPassword = function setPassword(password) {
     this.passwordHash = password;
+}
+
+schema.methods.setConfirmationToken = function setConfirmationToken() {
+    this.confirmationToken = this.generateJWT();
+}
+
+schema.methods.generateConfirmationUrl = function generateConfirmationUrl() {
+    return `${process.env.HOST}/confirmation/${this.confirmationToken}`;
 }
 
 schema.methods.generateJWT = function generateJWT() {

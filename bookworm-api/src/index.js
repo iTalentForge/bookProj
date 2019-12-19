@@ -12,7 +12,12 @@ dotenv.config();
 const app = express();
 app.use(bodyParser.json());
 mongoose.Promise = Promise;
-mongoose.connect(process.env.MONGODB_URL, {useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true });
+mongoose.connect(process.env.MONGODB_URL, {
+    useUnifiedTopology: true, 
+    useNewUrlParser: true, 
+    useCreateIndex: true,
+    useFindAndModify: false 
+});
 
 app.use('/api/auth', auth);
 app.use('/api/users', users);
