@@ -40,7 +40,7 @@ class ConfirmationPage extends React.Component {
                 )}
 
                 {!loading && 
-                success && (
+                !success && (
                     <Message negative icon>
                         <Icon name="warning sign" />
                         <Message.Content>

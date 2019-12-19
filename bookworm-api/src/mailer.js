@@ -1,6 +1,6 @@
 import nodemailer from "nodemailer";
 
-const from = '"Fanfik <info@fanfik.com>';
+const from = '"Fanfik" <info@fanfik.com>';
 
 function setup() {
     return nodemailer.createTransport({
@@ -23,7 +23,22 @@ export function sendConfirmationEmail(user) {
         Welcome to Fanfik. Please, confirm tour email.
         ${user.generateConfirmationUrl()}
         `
-    }
+    };
+
+    transport.sendMail(email);
+}
+
+export function sendResetPasswordEmail(user) {
+    const transport = setup();
+    const email = {
+        from,
+        to: user.email,
+        subject: "Reset Password",
+        text: `
+        To reset password follow this link
+        ${user.generateResetPasswordLink()}
+        `
+    };
 
     transport.sendMail(email);
 }
