@@ -4,24 +4,24 @@ import { connect } from "react-redux";
 import { Route, Redirect } from "react-router-dom";
 
 const UserRoute = ({ isAuthenticated, component: Component, ...rest }) => (
-    <Route 
-        {...rest} 
-        render={props => 
-            isAuthenticated ? <Component {...props} /> : <Redirect to="/" />} 
-    />
+  <Route
+    {...rest}
+    render={props =>
+      isAuthenticated ? <Component {...props} /> : <Redirect to="/" />}
+  />
 );
 
-// DEFAULT:  component: PropTypes.func.isRequired,
+//DEFAULT: PropTypes.func.isRequired
 
 UserRoute.propTypes = {
-    component: PropTypes.object.isRequired,
-    isAuthenticated: PropTypes.bool.isRequired
+  component: PropTypes.object.isRequired,
+  isAuthenticated: PropTypes.bool.isRequired
 };
 
 function mapStateToProps(state) {
-    return {
-        isAuthenticated: !!state.user.token
-    }
+  return {
+    isAuthenticated: !!state.user.token
+  };
 }
 
 export default connect(mapStateToProps)(UserRoute);
