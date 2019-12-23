@@ -1,4 +1,5 @@
 First install yarn
+then go and run:
 
 **Server:**
 http://localhost:8080
