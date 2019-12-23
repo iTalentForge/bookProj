@@ -18,9 +18,9 @@ export function sendConfirmationEmail(user) {
   const email = {
     from,
     to: user.email,
-    subject: "Welcome to Adventurers League Hub",
+    subject: "Welcome to Fanfic Hub",
     text: `
-    Welcome to Adventurers League Hub. Please, confirm your email.
+    Welcome to Fanfic Hub. Please, confirm your email.
 
     ${user.generateConfirmationUrl()}
     `

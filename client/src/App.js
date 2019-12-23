@@ -21,12 +21,30 @@ import { fetchCurrentUserRequest } from "./actions/users";
 import messages from "./messages";
 
 class App extends React.Component {
+  state = {
+    fanfics: [{
+      title: 'Hello world',
+      fanficText: 'I like proggramm',
+      img: 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fupload.wikimedia.org%2Fwikipedia%2Fcommons%2Fthumb%2F1%2F18%2FGlatt_-_Glattbrugg_IMG_6869.jpg%2F1200px-Glatt_-_Glattbrugg_IMG_6869.jpg&f=1&nofb=1',
+
+    }]
+  }
   componentDidMount() {
     if (this.props.isAuthenticated) this.props.fetchCurrentUserRequest();
   }
 
+  updateFanfics = (fanfic) => {
+    const fanfics = [...this.state.fanfics];
+
+    fanfics.push(fanfic);
+
+    this.state.fanfics = fanfics;
+
+  }
+
   render() {
     const { location, isAuthenticated, loaded, lang } = this.props;
+    const { fanfics } = this.state;
     return (
       <IntlProvider locale={lang} messages={messages[lang]}>
         <div>
@@ -79,37 +97,38 @@ class App extends React.Component {
               location={location}
               path="/characters/new"
               exact
-              component={NewFanficPage}
+              component={() => <NewFanficPage update={this.updateFanfics}/>}
             />
             <Route
               location={location}
               path="/dashboard"
+              render={() => <FanficsPage fanfics={fanfics} />}
               exact
-              component={FanficsPage}
+
             />
           </Loader>
         </div>
       </IntlProvider>
-        );
-      }
-    }
-    
+    );
+  }
+}
+
 App.propTypes = {
-          location: PropTypes.shape({
-          pathname: PropTypes.string.isRequired
-      }).isRequired,
-      isAuthenticated: PropTypes.bool.isRequired,
-      fetchCurrentUserRequest: PropTypes.func.isRequired,
-      loaded: PropTypes.bool.isRequired,
-      lang: PropTypes.string.isRequired
-    };
-    
+  location: PropTypes.shape({
+    pathname: PropTypes.string.isRequired
+  }).isRequired,
+  isAuthenticated: PropTypes.bool.isRequired,
+  fetchCurrentUserRequest: PropTypes.func.isRequired,
+  loaded: PropTypes.bool.isRequired,
+  lang: PropTypes.string.isRequired
+};
+
 function mapStateToProps(state) {
   return {
-          isAuthenticated: !!state.user.email,
-        loaded: state.user.loaded,
-        lang: state.locale.lang
-      };
-    }
-    
-export default connect(mapStateToProps, {fetchCurrentUserRequest})(App);
+    isAuthenticated: !!state.user.email,
+    loaded: state.user.loaded,
+    lang: state.locale.lang
+  };
+}
+
+export default connect(mapStateToProps, { fetchCurrentUserRequest })(App);

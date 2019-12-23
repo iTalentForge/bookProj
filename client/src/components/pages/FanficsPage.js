@@ -7,17 +7,21 @@ import {
 
 class FanficsPage extends React.Component {
     render() {
+        const fanfics = this.props.fanfics;
         return (
             <div className="container col-sm-4">
-                <Card>
-                    <CardImg top src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fupload.wikimedia.org%2Fwikipedia%2Fcommons%2Fthumb%2F1%2F18%2FGlatt_-_Glattbrugg_IMG_6869.jpg%2F1200px-Glatt_-_Glattbrugg_IMG_6869.jpg&f=1&nofb=1" alt="Card image cap" />
-                    <CardBody>
-                        <CardTitle ></CardTitle>
-                        <CardText>Some quick example text to build on the card title and make up the bulk of the card's content.</CardText>
-                        <CardLink href="#">Card Link</CardLink>
-                        <CardLink href="#">Another Link</CardLink>
-                    </CardBody>
-                </Card>
+                {fanfics.map(({ title, img, fanficText }) => (
+                    <Card>
+                        <CardImg top src={img} alt="Card image cap" />
+                        <CardBody>
+                            <CardTitle title={title}>{title}</CardTitle>
+                            <CardText>{fanficText}</CardText>
+                            <CardLink href="#">Card Link</CardLink>
+                            <CardLink href="#">Another Link</CardLink>
+                        </CardBody>
+                    </Card>
+                ))}
+
             </div>
         );
     }

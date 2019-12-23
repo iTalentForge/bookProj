@@ -18,8 +18,6 @@ const HomePage = () => (
       <Col xs={12} sm={6}>
         <img
           className="img-fluid"
-          alt="Adventurers League Logo"
-          // src="../../../../../book1.png"
         />
       </Col>
       <Col
