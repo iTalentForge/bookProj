@@ -34,7 +34,7 @@
     "mongoose-seed": "^0.6.0",
     "mongoose-unique-validator": "^2.0.3",
     "node-gyp": "^5.0.7",
-    "nodemailer": "^6.4.2",
+    "nodemailer": "^6.4.16",
     "request": "^2.88.0",
     "request-promise": "^4.2.5",
     "xml2js": "^0.4.23"
